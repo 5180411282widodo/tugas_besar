@@ -1,0 +1,216 @@
+#include<iostream>
+#include<cstdlib>
+#include<conio.h>
+#include <stdio.h>
+#include <stdlib.h>
+using namespace std;
+
+
+struct TNode{
+    int data;
+    TNode *next;
+};TNode *head, *tail,*depan,*belakang;
+
+void init(){
+    head=NULL;
+    tail=NULL;
+    depan=NULL;
+    belakang=NULL;
+}
+
+int isEmpty(){
+    if(tail==NULL){
+    return 1;
+    }else{
+        return 0;
+    }
+}
+void insertDepan(int databaru)
+{
+    TNode *baru;
+    baru =new TNode;
+    baru->data=databaru;
+    baru->next=NULL;
+    if(isEmpty()==1)
+    {
+        head=tail=baru;
+        tail->next=NULL;
+    }else{
+        baru->next=head;
+        head=baru;
+    }
+    cout<<"Input berhasil";
+}
+
+void insertBelakang(int data){
+    TNode *baru;
+    baru=new TNode;
+    baru->data=data;
+    baru->next=NULL;
+    if(isEmpty()==1){
+        head=baru;
+        tail=baru;
+        tail->next=NULL;
+    }else
+    {
+        tail->next=baru;
+        tail=baru;
+    }
+    cout<<"\n Input berhasil"<<endl;
+}
+void hapusDepan(){
+    TNode *hapus;
+    int d;
+    if(isEmpty()==0){
+        if(depan!=belakang){
+            hapus=depan;
+            d=hapus->data;
+            depan=depan->next;
+            delete hapus;
+        }else{
+            d=belakang->data;
+            depan=belakang=NULL;
+        }
+        cout<<d<<"Terhapus";
+    }else cout<<"Masih kosong\n";
+}
+void hapusBelakang(){
+    TNode *bantu,*hapus;
+    int d;
+    if(isEmpty()==0){
+        bantu=depan;
+        if(depan!=belakang){
+            while(bantu->next!=belakang){
+                bantu=bantu->next;
+            }
+            hapus=belakang;
+            belakang=bantu;
+            d=hapus->data;
+            delete hapus;
+            belakang->next=NULL;
+        }else{
+            d=belakang->data;
+            depan=belakang=NULL;
+        }
+        cout<<d<<"Terhapus\n";
+    }else cout<<"Masih kosong\n";
+}
+void tampil(){
+    TNode *bantu;
+    bantu=head;
+    if(isEmpty()==0){
+        cout<<"depan :";
+         while(bantu!=NULL){
+            cout<<bantu->data<<"->";
+            bantu=bantu->next;
+        }
+    }else if(isEmpty()==0){
+        cout<<"belakang :";
+        while(bantu!=NULL){
+            cout<<bantu->data<<"->";
+            bantu=bantu->next;
+        }
+     cout<<"\n Data masih kosong"<<endl;
+    }
+}
+main(){
+Data:
+    char nama[25];
+    char Alamat[15];
+    char Tempat_tanggal_lahir[15];
+    char Jenis_kelamin[10];
+    char nomer_antrian[4];
+    char npk[15];
+    char periode[15];
+    char tlp[12];
+    char mail[12];
+    char alamat[17];
+    long int total3;
+    char pilih;
+    int pil,data,Data,databaru;
+    init();
+    do{
+        system("cls");
+        cout<<endl;
+        cout<<"Rumah sakit"<<endl;
+        cout<<"-------------------------"<<endl;
+        cout<<"1. Data pasien"<<endl;
+        cout<<"2. Data poli"<<endl;
+        cout<<"3. Transaksi Pendaftaran"<<endl;
+        cout<<"0. keluar"<<endl;
+        cout<<"-------------------------"<<endl;
+        cout<<"masukkan pilihan :";cin>>pil;
+        switch(pil){
+            case 1: system("cls");{
+                cout<<"\nData pasien"<<endl;
+                cout<<"-------------"<<endl;
+                cout<<"masukan data dan isi data tersebut :"<<endl;
+                cout<<"Nama :";cin>>nama;
+                cout<<"Alamat :";cin>>Alamat;
+                cout<<"Tempat tanggal lahir :";cin>>Tempat_tanggal_lahir;
+                cout<<"Jenis kelamin :";cin>>Jenis_kelamin;
+				cout<<"nomer antrian :";cin>>nomer_antrian;
+                cout<<"masukkan data : ";cin>>databaru;
+                insertDepan(databaru);
+                break;
+            }
+            case 2: system("cls");{
+                cout<<"\nData poli"<<endl;
+                cout<<"-------------------------------"<<endl;
+                cout<<"|No |          Nama Poli      |"<<endl;
+                cout<<"-------------------------------"<<endl;
+                cout<<"|1  | Poli Gigi               |"<<endl;
+                cout<<"|2  | Poli Hati               |"<<endl;
+                cout<<"|3  | Poli jantung            |"<<endl;
+                cout<<"|4  | Poli kulit              |"<<endl;
+                cout<<"|5  | Poli Badan              |"<<endl;
+                cout<<"|6  | Poli Telinga            |"<<endl;
+                cout<<"|7  | Poli Sticke             |"<<endl;
+                cout<<"-------------------------------"<<endl;
+                cout<<"Pilih No : ";cin>>data;
+                insertBelakang(data);
+                break;
+            }
+            case 3: system("cls");{
+                    cout<<"\nTransaksi pendaftaran"<<endl;
+                    cout<<" Silahkan Masukkan Data Pemesanan"<<endl;
+                    cout<<" Nama Pemesan Kamar   :";
+                    cin>>npk;
+                    cout<<" Periode (malam/siang):";
+                    cin>>periode;
+                    cout<<" No. telepon          :";
+                    cin>>tlp;
+                    cout<<" Email                :";
+                    cin>>mail;
+                    cout<<" Alamat               :";
+                    cin>>alamat;
+                    cout<<endl;
+                    system("cls");
+                    cout<<endl;
+                    cout<<" -------------------------------------------------------------------------------------"<<endl;
+                    cout<<"  Data Pemesan Kamar Rawat"<<endl;
+                    cout<<"  -------------------------------------------------------------------------------------"<<endl;
+                    cout<<"   Nama Pemesan Kamar     "<<npk<<"      "     <<endl;
+                    cout<<"   Periode     (malam/siang) "<<periode<<""<<endl;
+                    cout<<"   No. Telepon            "<<tlp<<"\n";
+                    cout<<"   Email                  "<<mail<<"     "     <<endl;
+                    cout<<"   Alamat                 "<<alamat<<"  "      <<endl;
+                    cout<<"   Biaya Kamar per malam/siang  Rp 1300000,-"        <<endl;
+                    cout<<"   Total Biaya Kamar      Rp "<<total3<<",-                *sesuai periode"<<endl;
+                    cout<<"  -------------------------------------------------------------------------------------"<<endl<<endl;
+                    cout<<"  Jadi Pilih kamar rawat (y/n): ";
+
+                    if (pilih == 'y'||pilih=='Y')
+                hapusDepan();
+                break;
+            }
+            case 0 : system("cls");{
+                return 0;
+                break;
+            }default:
+            system ("cls");{
+                cout<<"pilihan tidak tersedia"<<endl;
+            }
+        }getch();
+    }while(pil!=7);
+}
